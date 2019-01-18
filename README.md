@@ -1,12 +1,13 @@
 # Platformer
 A python project created at <a href="codegauchos.com">Code Gauchos</a>.
-----------------------------------
+-------------------------
 ### Main Goals:
 - [ ] Implement a 2D platformer for the PC using the <a href="kivy.org">Kivy</a> library
 - [ ] Make it playable through a controller made with a Arduino or RPI
 - [ ] Create sound effects and music
 - [ ] Create sprites and backgrounds
 - [ ] Bow to shoot enemies (Hold a button and aim w/ joystick)
+- [ ] Python read image with Pillow for level loading
 
 ### Materials:
 - [x] Breadboard
