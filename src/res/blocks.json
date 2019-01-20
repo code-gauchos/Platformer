@@ -1,0 +1,22 @@
+[
+    {
+        "file": "dirt.png",
+        "breakable": false,
+        "color": [139,69,19]
+    },
+    {
+        "file": "stone.png",
+        "breakable": false,
+        "color": [128,128,128]
+    },
+    {
+        "file": "wood.png",
+        "breakable": true,
+        "color": [102,51,0]
+    },
+    {
+        "file": "sand.png",
+        "breakable": true,
+        "color": [102,51,0]
+    }
+]
