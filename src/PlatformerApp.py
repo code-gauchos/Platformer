@@ -15,10 +15,9 @@ kivy.require(kivy.__version__)
 class PlatformerApp(App):
     def build(self):
         blocks = self.LoadBlocks()
-        missions = self.LoadMissions()
-        world = wg.generate_world()
+        missions = self.LoadLevels()
         
-        return Game(blocks, world, missions)
+        return Game(blocks, levels)
 
     def LoadBlocks(self):
         result=[]
@@ -29,16 +28,7 @@ class PlatformerApp(App):
             result.append(Block(dat["file"], dat["breakable"], dat["color"]))
         return result
 
-    def LoadTiles(self):
-        result=[]
-
-        with open("src/res/tiles.json") as file:
-            data = json.load(file)
-        for dat in data:
-            result.append(Tile(dat["file"], dat["walkable"], dat["color"]))
-        return result
-
-    def LoadMissions(self):
+    def LoadLevels(self):
         result=[]
 
         with open("src/res/missions.json") as file:
