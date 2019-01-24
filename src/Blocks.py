@@ -1,4 +1,5 @@
 from kivy.uix.boxlayout import BoxLayout
+from kivy.graphics import Rectangle
 
 class Block(BoxLayout):
     Index=0
@@ -12,4 +13,4 @@ class Block(BoxLayout):
 
     def render(self):
         with self.canvas:
-            Rectangle
+            Rectangle(pos=(0,0),size=self.size,sou)

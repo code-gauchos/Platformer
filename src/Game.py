@@ -4,20 +4,20 @@ from kivy.uix.floatlayout import FloatLayout
 from final_class import final
 
 from Blocks import Block
-from Missions import Mission
+from Levels import level
 
 @final
 class Game(FloatLayout):
-    def __init__(self, blocks, world, missions):
+    def __init__(self, blocks, world, levels):
         self.blocks=blocks
         self.world=world
-        self.missions=missions
-        for mission in missions:
-            mission.data = Game.formatMission(mission.tempData, blocks)
-            mission.tempData = None
+        self.levels=levels
+        for level in levels:
+            level.data = Game.formatLevel(level.tempData, blocks)
+            level.tempData = None
 
     @staticmethod
-    def formatMission(data, blocks):
+    def formatLevel(data, blocks):
         result=[]
         for res in data:
             for block in blocks:
@@ -28,5 +28,3 @@ class Game(FloatLayout):
                 #checking if this is the last block
                 if block.number+1 is Block.Index:
                     result.append(None)
-        print(result)
-
