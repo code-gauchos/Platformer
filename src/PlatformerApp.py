@@ -5,18 +5,16 @@ from kivy.app import App
 from kivy.uix.button import Button
 
 from Game import Game
-import WorldGenerator as wg
-from Missions import Mission
 from Blocks import Block
-from Tiles import Tile
+from Levels import Level
 
-kivy.require(kivy.__version__)
+kivy.require("1.8.0")
 
 class PlatformerApp(App):
     def build(self):
         blocks = self.LoadBlocks()
-        missions = self.LoadLevels()
-        
+        levels = self.LoadLevels()
+
         return Game(blocks, levels)
 
     def LoadBlocks(self):
@@ -31,10 +29,10 @@ class PlatformerApp(App):
     def LoadLevels(self):
         result=[]
 
-        with open("src/res/missions.json") as file:
+        with open("src/res/levels.json") as file:
             data = json.load(file)
         for dat in data:
-            result.append(Mission(dat["name"],dat["length"],dat["file"]))
+            result.append(Level(dat["name"],dat["length"],dat["height"],dat["file"]))
 
         return result
 
