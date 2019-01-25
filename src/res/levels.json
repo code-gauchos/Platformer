@@ -1,8 +1,8 @@
 [
   {
     "name": "World 1 : Level 1",
-    "file": "1-1.png",
+    "file": "lvl1.png",
     "length": 32,
-    "height": 20
+    "height": 32
   }
 ]

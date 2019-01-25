@@ -2,7 +2,7 @@
 A python project created at [Code Gauchos](codegauchos.com).
 -------------------------
 ## Game Description:
-You spawn in a randomly generated world, starting out with only a few items, but you can get better by killing monsters, mining, etc. As you get better, missions start to pop up, in a mission, you choose the items you would like to bring, and then there will be waves of monsters and finally a boss battle.
+Finish README.md
 
 ### Main Goals:
 - [ ] Implement a 2D platformer for the PC using the [Kivy Library](https://kivy.org)

@@ -14,7 +14,7 @@ class PlatformerApp(App):
     def build(self):
         blocks = self.LoadBlocks()
         levels = self.LoadLevels()
-
+        
         return Game(blocks, levels)
 
     def LoadBlocks(self):
