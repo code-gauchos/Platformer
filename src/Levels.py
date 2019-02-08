@@ -18,7 +18,6 @@ class Level(FloatLayout):
     def render(self):
         for block in self.blocks:
             if block is not None:
-                print(block)
                 self.add_widget(block)
                 block.render()
 
@@ -26,22 +25,15 @@ class Level(FloatLayout):
         result=[]
 
         img = Image.open("src/res/img/levels/"+file)
-        img = img.rotate(-90, expand=True)
-        width, height = img.size
+        img = img.rotate(270, expand=True)
+        self.width, self.height = img.size
 
-        if(width > height):
-            height = width
-        elif(height > width):
-            width = height
-
-        img = img.resize((width, height))
         pixels=img.load()
 
-        for i in range(width):
-            for j in range(height):
+        for i in range(self.width):
+            for j in range(self.height):
                 result.append(pixels[i,j])
 
-        self.size = (width*10, height*10)
         return result
 
     def formatLevel(self, data, blocks):
@@ -64,7 +56,7 @@ class Level(FloatLayout):
             for block in range(len(self.blocks_arr)):
                  if dat is self.blocks_arr[block].number:
                      res=Block(self.blocks_arr[block].file, self.blocks_arr[block].color)
-                     res.pos=((i%self.size[0])*res.size[0], int(i/self.size[1])*res.size[1])
+                     res.pos=((i%self.height)*res.size[0], int(i/self.height)*res.size[1])
                      result.append(res)
 
                  if block is len(self.blocks_arr)-1:

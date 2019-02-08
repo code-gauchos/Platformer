@@ -10,7 +10,7 @@ class Block(Widget):
         self.color=color
         self.number=Block.Index
         Block.Index+=1
-        self.size = (10,10)
+        self.size = (30,30)
 
     def render(self):
         with self.canvas:
