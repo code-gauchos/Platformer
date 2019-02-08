@@ -5,10 +5,12 @@ from PIL import Image
 
 class Level(FloatLayout):
     Index=0
-    def __init__(self, name, file, blocks):
+    def __init__(self, name, file, blocks, **kwargs):
+        super(Level, self).__init__(**kwargs)
         self.pos = (0,0)
         self.blocks_arr=blocks
-        self.data = Level.formatLevel(self.ParseLevel(file), self.blocks_arr)
+        self.data = self.formatLevel(self.ParseLevel(file), self.blocks_arr)
+        self.getBlocks()
         self.number=Level.Index
         Level.Index+=1
 
@@ -39,11 +41,10 @@ class Level(FloatLayout):
             for j in range(height):
                 result.append(pixels[i,j])
 
-        self.size = (width*30, height*30)
+        self.size = (width*10, height*10)
         return result
 
-    @staticmethod
-    def formatLevel(data, blocks):
+    def formatLevel(self, data, blocks):
         result=[]
         for res in data:
             for block in blocks:
@@ -63,10 +64,10 @@ class Level(FloatLayout):
             for block in range(len(self.blocks_arr)):
                  if dat is self.blocks_arr[block].number:
                      res=Block(self.blocks_arr[block].file, self.blocks_arr[block].color)
-                     res.pos=((i%height)*res.size[0], int(i/height)*res.size[1])
+                     res.pos=((i%self.size[0])*res.size[0], int(i/self.size[1])*res.size[1])
                      result.append(res)
 
-                 if block is len(blocks_arr)-1:
+                 if block is len(self.blocks_arr)-1:
                      result.append(None)
             i+=1
         self.blocks=result

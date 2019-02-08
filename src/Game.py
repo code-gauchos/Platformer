@@ -1,11 +1,5 @@
-from itertools import chain
-
 from kivy.uix.floatlayout import FloatLayout
-from kivy.config import Config
 from final_class import final
-
-from Blocks import Block
-from Levels import Level
 
 @final
 class Game(FloatLayout):

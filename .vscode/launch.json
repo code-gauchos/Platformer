@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Kivy",
+            "type": "python",
+            "request": "launch",
+            "program": "C:\\Users\\Gaucho6\\Documents\\projects\\Winter 2019\\Intermediate Python - Matthew Reese\\Platformer\\src\\PlatformerApp.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Python: Terminal (external)",
             "type": "python",
             "request": "launch",
