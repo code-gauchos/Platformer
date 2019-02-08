@@ -12,10 +12,10 @@ kivy.require("1.8.0")
 
 class PlatformerApp(App):
     def build(self):
-        blocks = self.LoadBlocks()
-        levels = self.LoadLevels()
-        
-        return Game(blocks, levels)
+        self.blocks = self.LoadBlocks()
+        self.levels = self.LoadLevels()
+
+        return Game(self.levels)
 
     def LoadBlocks(self):
         result=[]
@@ -23,7 +23,7 @@ class PlatformerApp(App):
         with open("src/res/blocks.json") as file:
             data = json.load(file)
         for dat in data:
-            result.append(Block(dat["file"], dat["breakable"], dat["color"]))
+            result.append(Block(dat["file"], dat["color"]))
         return result
 
     def LoadLevels(self):
@@ -32,7 +32,7 @@ class PlatformerApp(App):
         with open("src/res/levels.json") as file:
             data = json.load(file)
         for dat in data:
-            result.append(Level(dat["name"],dat["length"],dat["height"],dat["file"]))
+            result.append(Level(dat["name"],dat["file"], self.blocks))
 
         return result
 

@@ -1,0 +1,1 @@
+python src/PlatformerApp.py

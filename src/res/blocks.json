@@ -1,13 +1,10 @@
 [
     {
-        "file": "dirt1.png",
-        "breakable": false,
+        "file": "dirt.png",
         "color": [139,69,19]
     },
     {
-        "file": "stone1.png",
-        "breakable": false,
-        "color": [128,128,128],
-        "format": {"random": 4}
+        "file": "stone.png",
+        "color": [128,128,128]
     }
 ]
