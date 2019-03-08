@@ -1,8 +1,7 @@
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.graphics import Rectangle
-from kivy.uix.widget import Widget
 
-class Block(Widget):
+class Block(RelativeLayout):
     Index=0
     def __init__(self, file, color, **kwargs):
         super(Block, self).__init__(**kwargs)
@@ -13,5 +12,6 @@ class Block(Widget):
         self.size = (30,30)
 
     def render(self):
+        self.canvas.clear()
         with self.canvas:
-            Rectangle(pos=(self.pos),size=self.size,source="src\\res\\img\\blocks\\"+self.file)
+            Rectangle(pos=(0,0),size=self.size,source="src\\res\\img\\blocks\\"+self.file)

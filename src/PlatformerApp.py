@@ -3,10 +3,13 @@ import json
 import kivy
 from kivy.app import App
 from kivy.uix.button import Button
+from kivy.config import Config
 
 from Game import Game
 from Blocks import Block
 from Levels import Level
+
+Config.set("kivy", "exit_on_escape", 0)
 
 kivy.require("1.8.0")
 

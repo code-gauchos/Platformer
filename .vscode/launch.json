@@ -5,7 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Kivy",
+            "name": "Python: Kivy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}\\src\\PlatformerApp.py",
+            "console": "${input:terminal}Terminal",
+        },
+        {
+            "name": "Kivy Gauchos",
             "type": "python",
             "request": "launch",
             "program": "C:\\Users\\Gaucho6\\Documents\\projects\\Winter 2019\\Intermediate Python - Matthew Reese\\Platformer\\src\\PlatformerApp.py",
@@ -73,6 +80,20 @@
             "request": "launch",
             "program": "${file}",
             "console": "externalTerminal"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "appName",
+            "type": "promptString",
+            "description": "Name of your kivy app: (without App or .py)",
+            "default": "Test"
+        },
+        {
+            "id": "terminal",
+            "type": "pickString",
+            "description": "Integrated or external terminal?",
+            "options": ["integrated", "external"]
         }
     ]
 }
