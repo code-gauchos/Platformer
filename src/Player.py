@@ -27,13 +27,10 @@ class Player(FloatLayout):
         self.add_widget(self.cam) # adding the camera
         self.cam.render()
         # Creating the Player:
-        tempPos = self.cam.level.player_pos
-        self.sprite=RelativeLayout(size=(60,60), pos=tempPos)
+        self.sprite=RelativeLayout(size=(60,60), pos=self.cam.level.player_pos, center=[30,90])
         with self.sprite.canvas:
-            Color(0, 0, 1, 1)
-            Rectangle(size=(60,60))
             Rectangle(size=self.sprite.size,source="src\\res\\img\\player.png")
-        self.add_widget(self.sprite) 
+        self.add_widget(self.sprite)
 
     def CheckKeys(self, dt):
         self.move("down", dt) # Gravity!
@@ -43,6 +40,10 @@ class Player(FloatLayout):
             self.move("left", dt)
         if 'd' in self.keys_pressed:
             self.move("right", dt)
+        if 's' in self.keys_pressed:
+            self.cam.moveY(-1000*dt)
+        if 'w' in self.keys_pressed:
+            self.cam.moveY(1000*dt)
 
         if "space" in self.keys_pressed:
             self.jump(dt)
@@ -53,11 +54,14 @@ class Player(FloatLayout):
 
     def move(self, direction, delta):
         speed = 1000 * delta
+        self.sprite.center_x = (self.sprite.x + (self.sprite.width/2))
+        self.sprite.center_y = (self.sprite.y + (self.sprite.height/2))
         # No "up" because jump handles that!
         if direction is "down":
             for block in self.cam.level.blocks: # Looping through the blocks in the current level
-                if ((block.y+30) < self.cam.position[1]) and ((block.x > self.cam.position[0]+60)):
-                    pass#self.cam.moveY(-speed)
+                # If it has collided!!! (not going to explain how this works)
+                if ((self.sprite.x+60 > block.x) and (self.sprite.x < block.x+30)) and (self.sprite.y < block.y+30):
+                    print("Collided!!!"+str(block.number))
         if direction is "left":
             self.cam.moveX(-speed)
             print("Camera position: "+str(self.cam.position))
@@ -90,8 +94,7 @@ class Camera(BoxLayout):
         self.level = current_level
         self.add_widget(self.level)
 
-        tempPos = self.level.player_pos
-        self.position = tempPos
+        self.position = self.level.player_pos
 
 
     def setLevel(self, level):
