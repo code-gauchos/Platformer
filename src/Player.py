@@ -1,17 +1,23 @@
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.relativelayout import RelativeLayout
+from kivy.graphics import Rectangle, Color
 from kivy.core.window import Window
 from kivy.clock import Clock
 
 class Player(FloatLayout):
     def __init__(self, levels, **kwargs):
         super(Player, self).__init__(**kwargs)
-        
+
         # Getting the defualt keyboard and binding 'keyup' and 'keydown'
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
         self._keyboard.bind(on_key_up=self._on_keyboard_up)
         self.keys_pressed = set() # Making a set (array) of all currently pressed keys
+
+
+        self.width = Window.width
+        self.height = Window.height
 
         Clock.schedule_interval(self.CheckKeys, 0.01)
 
@@ -20,17 +26,47 @@ class Player(FloatLayout):
         self.cam = Camera(levels[self.LEVEL_NUM]) # initalizing a camera
         self.add_widget(self.cam) # adding the camera
         self.cam.render()
+        # Creating the Player:
+        tempPos = self.cam.level.player_pos
+        self.sprite=RelativeLayout(size=(60,60), pos=tempPos)
+        with self.sprite.canvas:
+            Color(0, 0, 1, 1)
+            Rectangle(size=(60,60))
+            Rectangle(size=self.sprite.size,source="src\\res\\img\\player.png")
+        self.add_widget(self.sprite) 
 
     def CheckKeys(self, dt):
+        self.move("down", dt) # Gravity!
+
         # Generic WASD movement
-        if 'w' in self.keys_pressed:
-            self.cam.moveY(1000*dt)
         if 'a' in self.keys_pressed:
-            self.cam.moveX(-(1000*dt))
-        if 's' in self.keys_pressed:
-            self.cam.moveY(-1000*dt)
+            self.move("left", dt)
         if 'd' in self.keys_pressed:
-            self.cam.moveX(1000*dt)
+            self.move("right", dt)
+
+        if "space" in self.keys_pressed:
+            self.jump(dt)
+
+
+        if 'z' in self.keys_pressed:
+            self.cam.moveTo()
+
+    def move(self, direction, delta):
+        speed = 1000 * delta
+        # No "up" because jump handles that!
+        if direction is "down":
+            for block in self.cam.level.blocks: # Looping through the blocks in the current level
+                if ((block.y+30) < self.cam.position[1]) and ((block.x > self.cam.position[0]+60)):
+                    pass#self.cam.moveY(-speed)
+        if direction is "left":
+            self.cam.moveX(-speed)
+            print("Camera position: "+str(self.cam.position))
+        elif direction is "right":
+            self.cam.moveX(speed)
+            print("Camera position: "+str(self.cam.position))
+    
+    def jump(self, delta):
+        pass
     
     def _keyboard_closed(self):
         # Unbinding the window's keyboard and setting it to 'None'
@@ -54,6 +90,10 @@ class Camera(BoxLayout):
         self.level = current_level
         self.add_widget(self.level)
 
+        tempPos = self.level.player_pos
+        self.position = tempPos
+
+
     def setLevel(self, level):
         # Removing the current level and adding the new one
         self.remove_widget(self.level)
@@ -65,10 +105,30 @@ class Camera(BoxLayout):
         for block in self.level.blocks:
                 if block is not None:
                     block.x-=num
+        self.position[0] += num
     def moveY(self, num):
         for block in self.level.blocks:
                 if block is not None:
                     block.y-=num
+        self.position[1] += num
+    def moveTo(self, *, x=None, y=None):
+        if x is None and y is None:
+            print("Moving from: "+str(self.position)+" To: "+str(self.level.player_pos))
+            self.moveTo(x=self.level.player_pos[0], y=self.level.player_pos[1]) # If no position is specified, move to the defualt player position
+            return
+        if x is not None:
+            self.moveX(x-self.position[0])
+        if y is not None:
+            self.moveY(y-self.position[1])
+
+    def snap(self):
+        if self.position[0]%30 is not 0 or self.position[1]%30 is not 0:
+            self.moveX(self.round30(self.position[0])-self.position[0])
+            self.moveY(self.round30(self.position[1])-self.position[1])
+        
 
     def render(self):
         self.level.render()
+
+    def round30(self, num):
+        return int(30 * round(float(num)/30))

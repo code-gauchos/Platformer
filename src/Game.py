@@ -23,9 +23,7 @@ class Game(FloatLayout):
     def on_mouse_pos(self, *args):
         if self.block_pos:
             self.remove_widget(self.block_pos)
-        print(args[1])
         self.block_pos = Label(text="[b]Block("+str(int(args[1][0]/30))+","+str(int(args[1][1]/30))+")[/b]", markup=True, pos=((args[1][0]-(self.width/2)),(args[1][1]-(self.height/2))))
-        print(self.block_pos.pos)
         self.add_widget(self.block_pos)
     
     def win_max(self, *args):
