@@ -56,9 +56,12 @@ class Player(FloatLayout):
         # No "up" because jump handles that!
         if direction is "down":
             for block in self.cam.level.blocks: # Looping through the blocks in the current level
-                if ((block.y+30) < self.cam.position[1]) and ((block.x > self.cam.position[0]+60)):
-                    pass#self.cam.moveY(-speed)
-        if direction is "left":
+                if ((block.x > (self.cam.position[0]+60)) or ((block.x+30) < self.cam.position[0])) and ((block.y > (self.cam.position[1]+60)) or ((block.y+30) < self.cam.position[1])):
+                    pass # Not collided!
+                else:
+                    # Collided!
+                    print("Collided!")
+        if direction is "left": 
             self.cam.moveX(-speed)
             print("Camera position: "+str(self.cam.position))
         elif direction is "right":
