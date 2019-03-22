@@ -27,7 +27,7 @@ class Player(FloatLayout):
         self.add_widget(self.cam) # adding the camera
         self.cam.render()
         # Creating the Player:
-        self.sprite=RelativeLayout(size=(60,60), pos=self.cam.level.player_pos, center=[30,90])
+        self.sprite=RelativeLayout(size=(60,60), pos=self.cam.level.player_pos)
         with self.sprite.canvas:
             Rectangle(size=self.sprite.size,source="src\\res\\img\\player.png")
         self.add_widget(self.sprite)
@@ -59,19 +59,16 @@ class Player(FloatLayout):
         # No "up" because jump handles that!
         if direction is "down":
             for block in self.cam.level.blocks: # Looping through the blocks in the current level
-<<<<<<< HEAD
-                if ((block.x > (self.cam.position[0]+60)) or ((block.x+30) < self.cam.position[0])) and ((block.y > (self.cam.position[1]+60)) or ((block.y+30) < self.cam.position[1])):
+                
+                if (block.x >= (self.cam.position[0]+60)) or ((block.x+30) <= self.cam.position[0]) or (block.y >= (self.cam.position[1]+60)) or ((block.y+30) <= self.cam.position[1]):
                     pass # Not collided!
                 else:
                     # Collided!
-                    print("Collided!")
+                    print("Collided!\n\tPlayer: "+str(self.cam.position)+"\n\tBlock: "+str(block.pos))
+                    if ((block.x > (self.cam.position[0]+60)) or ((block.x+30) < self.cam.position[0])):
+                        print("\tX is not")
+                    pass
         if direction is "left": 
-=======
-                # If it has collided!!! (not going to explain how this works)
-                if ((self.sprite.x+60 > block.x) and (self.sprite.x < block.x+30)) and (self.sprite.y < block.y+30):
-                    print("Collided!!!"+str(block.number))
-        if direction is "left":
->>>>>>> 3bdfe83f329095fa879e0b1e470994e5557eca46
             self.cam.moveX(-speed)
             print("Camera position: "+str(self.cam.position))
         elif direction is "right":
