@@ -31,6 +31,7 @@ class Player(FloatLayout):
         with self.sprite.canvas:
             Rectangle(size=self.sprite.size,source="src\\res\\img\\player.png")
         self.add_widget(self.sprite)
+        self.coloredblock = None
 
     def CheckKeys(self, dt):
         self.move("down", dt) # Gravity!
@@ -59,24 +60,27 @@ class Player(FloatLayout):
         # No "up" because jump handles that!
         if direction is "down":
             for block in self.cam.level.blocks: # Looping through the blocks in the current level
-                
                 if (block.x >= (self.cam.position[0]+60)) or ((block.x+30) <= self.cam.position[0]) or (block.y >= (self.cam.position[1]+60)) or ((block.y+30) <= self.cam.position[1]):
-                    pass # Not collided!
+                    pass
                 else:
                     # Collided!
-                    print("Collided!\n\tPlayer: "+str(self.cam.position)+"\n\tBlock: "+str(block.pos))
-                    if ((block.x > (self.cam.position[0]+60)) or ((block.x+30) < self.cam.position[0])):
-                        print("\tX is not")
-                    pass
+                    #print("Collided!\n\tPlayer: "+str(self.cam.position)+"\n\tBlock: "+str(block.pos))
+                    with block.canvas:
+                        Color(1, 0, 0, 1.0)
+                        Rectangle(pos=(0,0), size=(30,30))
+                    self.coloredblock = block
         if direction is "left": 
             self.cam.moveX(-speed)
-            print("Camera position: "+str(self.cam.position))
+            #print("Camera position: "+str(self.cam.position))
         elif direction is "right":
             self.cam.moveX(speed)
-            print("Camera position: "+str(self.cam.position))
+            #print("Camera position: "+str(self.cam.position))
     
     def jump(self, delta):
         pass
+
+    def on_mouse_up(self, position):
+        print("Mouse")
     
     def _keyboard_closed(self):
         # Unbinding the window's keyboard and setting it to 'None'
